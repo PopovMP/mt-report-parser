@@ -1,0 +1,18 @@
+{
+  "name": "@popovmp/mt-report-parser",
+  "version": "1.0.0",
+  "description": "Parses a MetaTrader History report and calculates stats",
+  "type": "module",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:PopovMP/mt-report-parser.git"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@popovmp/html-ast": "^1.2.0"
+  }
+}
