@@ -13,6 +13,6 @@
     "test": "node --test"
   },
   "dependencies": {
-    "@popovmp/html-ast": "^1.2.0"
+    "@popovmp/html-ast": "^2.0.0"
   }
 }
