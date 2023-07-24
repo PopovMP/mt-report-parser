@@ -1,4 +1,4 @@
-import {getElementsByTagName} from "@popovmp/html-ast";
+import {getElementsByTagName, getText} from "@popovmp/html-ast";
 
 const LONG  = 1
 const SHORT = 2
@@ -36,9 +36,10 @@ const SHORT = 2
 /**
  * @typedef {Object} ASTElement
  *
- * @property {string} tagName
+ * @property {string}           tagName
  * @property {{string: string}} attributes
- * @property {ASTElement[]} children
+ * @property {ASTElement[]}     children
+ * @property {string}           text
  */
 
 /**
@@ -109,7 +110,7 @@ function isStartOfPositionTableRow(row) {
     const b = div.children[0];
     return b.children.length     === 1       &&
            b.children[0].tagName === "#text" &&
-           b.children[0].value   === "Positions";
+           b.children[0].text   === "Positions";
 }
 
 /**
@@ -131,17 +132,20 @@ function isEndOfPositionTableRow(row) {
  * @returns {ReportPosition}
  */
 function parsePositionRow(row) {
+    /** @type {string[]} */
+    const texts = row.children.map(getText);
+
     return {
-        openTime  : parsePosDate(row.children[ 0].children[0].value),
-        posId     : parseInt    (row.children[ 1].children[0].value),
-        symbol    :              row.children[ 2].children[0].value,
-        type      :              row.children[ 3].children[0].value === "Buy" ? LONG : SHORT,
-        magic     : parseMagic  (row.children[ 4]),
-        volume    : parseFloat  (row.children[ 5].children[0].value),
-        openPrice : parseFloat  (row.children[ 6].children[0].value),
-        closeTime : parsePosDate(row.children[ 9].children[0].value),
-        closePrice: parseFloat  (row.children[10].children[0].value),
-        profit    : parseFloat  (row.children[13].children[0].value),
+        openTime  : parsePosDate(texts[ 0]),
+        posId     : parseInt    (texts[ 1]),
+        symbol    :              texts[ 2],
+        type      :              texts[ 3] === "Buy" ? LONG : SHORT,
+        magic     : parseMagic  (texts[ 4]),
+        volume    : parseFloat  (texts[ 5]),
+        openPrice : parseFloat  (texts[ 6]),
+        closeTime : parsePosDate(texts[ 9]),
+        closePrice: parseFloat  (texts[10]),
+        profit    : parseFloat  (texts[13]),
     };
 }
 
@@ -159,13 +163,13 @@ function parsePosDate(dateText) {
  * Parses the magic number from the HTML report AST.
  * If the magic number is not found, returns 0.
  *
- * @param {ASTElement} td
+ * @param {string} magicText
  * @return {number}
  */
-function parseMagic(td) {
-    return td.children.length === 1
-        ? parseInt(td.children[0].value)
-        : 0;
+function parseMagic(magicText) {
+    return magicText === ""
+        ? 0
+        : parseInt(magicText);
 }
 
 /**
@@ -315,7 +319,7 @@ export function calculateStatistics(positions) {
         profitFactor    : profitFactor   (positions),
         countProfitable : countProfitable(positions),
         countLoosing    : countLoosing   (positions),
-        countOfTrades     : positions.length,
+        countOfTrades   : positions.length,
         countBreakeven  : countBreakeven (positions),
         winLossRatio    : winLossRatio   (positions),
         maxConsecLooses : maxConsecLooses(positions),

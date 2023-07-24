@@ -17,18 +17,18 @@ describe("008-mixed-elements", () => {
 
         const someText = p.children[0];
         equal(someText.tagName, "#text");
-        equal(someText.value, "some text");
+        equal(someText.text, "some text");
 
         const boldText = p.children[1];
         equal(boldText.tagName, "b");
-        equal(boldText.children[0].value, "bold text");
+        equal(boldText.children[0].text, "bold text");
 
         const otherText = p.children[2];
         equal(otherText.tagName, "#text");
-        equal(otherText.value, "other text");
+        equal(otherText.text, "other text");
 
         const italicText = p.children[3];
         equal(italicText.tagName, "i");
-        equal(italicText.children[0].value, "italic text");
+        equal(italicText.children[0].text, "italic text");
     });
 });
