@@ -11,8 +11,8 @@ import {parsePositions} from "../index.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = dirname(__filename);
 
-const html = readFileSync(join(__dirname, "res/ReportHistory-70358000.html"), "ascii");
-const ast = parse(html);
+const html = readFileSync(join(__dirname, "res/ReportHistory-70358000.html"), "utf8");
+const ast  = parse(html);
 
 describe("Parse report history", () => {
     it("Parse Positions", () => {

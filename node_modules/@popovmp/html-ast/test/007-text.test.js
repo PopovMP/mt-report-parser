@@ -16,6 +16,6 @@ describe("text node", () => {
         const h1  = ast.children[0].children[0].children[0];
         const textElem = h1.children[0];
         equal(textElem.tagName, "#text");
-        equal(textElem.value, "HTML to AST");
+        equal(textElem.text, "HTML to AST");
     });
 });

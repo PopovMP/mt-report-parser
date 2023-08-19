@@ -1,6 +1,6 @@
 {
   "name": "@popovmp/mt-report-parser",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Parses a MetaTrader History report and calculates stats",
   "type": "module",
   "main": "index.js",
@@ -13,6 +13,6 @@
     "test": "node --test"
   },
   "dependencies": {
-    "@popovmp/html-ast": "^1.2.0"
+    "@popovmp/html-ast": "^1.4.0"
   }
 }
