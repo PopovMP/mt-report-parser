@@ -1,6 +1,6 @@
 {
   "name": "@popovmp/html-ast",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Parses a standard HTML string into an AST",
   "type": "module",
   "main": "index.js",

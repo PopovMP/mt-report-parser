@@ -124,9 +124,15 @@ function parseElement(str, pos, tagName) {
     };
 
     pos = parseAttributes(str, pos, element.attributes);
-    pos = parseElements(str, pos, element.children);
+
+    // Parse children elements of a non-void tag
+    if (!voidHtmlTags.includes(tagName.toLowerCase())) {
+        pos = parseElements(str, pos, element.children);
+    }
+
     pos = eatWhiteSpace(str, pos);
 
+    // Parse end tag of a non-void tag
     if (!voidHtmlTags.includes(tagName.toLowerCase())) {
         const [endTagName, endTagPos] = parseEndTag(str, pos);
         pos = endTagPos;
